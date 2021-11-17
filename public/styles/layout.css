@@ -30,7 +30,5 @@ body {
 .container {
    width: 90%;
    margin: auto;
-   border: 1rem solid goldenrod;
-   border-width: 5px;
    background-color: #f4f1ec;
  }
