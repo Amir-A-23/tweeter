@@ -15,6 +15,9 @@ html {
  */
 
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: #545149;
   background-color: #f4f1ec;
   font-size: 24px;
@@ -23,3 +26,11 @@ body {
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
+.container {
+   width: 90%;
+   margin: auto;
+   border: 1rem solid goldenrod;
+   border-width: 5px;
+   background-color: #f4f1ec;
+ }
