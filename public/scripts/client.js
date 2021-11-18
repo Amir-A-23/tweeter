@@ -15,9 +15,11 @@ const renderTweets = tweets => {
 };
 const renderLatestTweet = tweets => {
     const latestTweet = tweets[tweets.length - 1];
+    //console.log(latestTweet);
     let $tweetElement = createTweetElement(latestTweet);
     $(`.tweet-container`).prepend($tweetElement);
 };
+ //!CHECK TO SEE IF ESCAPE WORKS
 createTweetElement = tweetData => {
 let article = `<article class = "tweet">
                 <header>
@@ -34,7 +36,8 @@ let article = `<article class = "tweet">
                   </div>
                 </header>
                 <div class="tweeter-posts">
-                  <p>${tweetData.content.text}</p>
+               
+                  <p class="overflow-wrap">${escape(tweetData.content.text)}</p>
                 </div>
                 <footer>
                   <div class ="time-posted">
@@ -53,46 +56,46 @@ let article = `<article class = "tweet">
 
 
 $(document).ready(() => {
-
+  
   loadTweets();
-    
-    $('#form-submit').submit((event) => {
-    const formData = $('form').serialize();
-    const text = getText(formData);
-    if(!text || !text.trim()) {
-      alert('Error: Tweet is empty');
-    } else if(text.length > 140){
-      alert('Error: Exceeded Character Limit');
-    } else {
-    $.post('/tweets', formData, function () {
 
+  $('#form-submit').submit((event) => {
+  const formData = $('form').serialize();
+  const text = getText(formData);
+
+ // $('.error-message').hide();
+  //Error Handling if form is empty or spaces
+  if(!errorhandle(text)) {
+      $('.error-message').hide();
+    $.post('/tweets', formData, function () {
+        
       //once you post a tweet, get that post back and display it
       loadLatestTweet();
-
       //reset textarea after submitting
     $('textarea').val("");
-    });
-    }
-    
     //reset counter after submitting
-    $('.counter').text(140);
-    $(".counter").css('color', '#545149');
+    resetCounter();
+    });
+  }
 
     event.preventDefault();
 
   });
 });
-// errorhandle = text => {
-//   if(!text || !text.trim()) {
-//      alert('Error: Tweet is empty');
-//      return true;
-//   } 
-//   if(text.length > 140){
-//      alert('Error: Exceeded Character Limit');
-//      return true;
-//   }
-//   return ;
-// }
+errorhandle = text => {
+  if(!text || !text.trim()) {
+     $('.error-message').text('Error: Tweet is empty');
+     $('.error-message').show();
+     return true;
+  } 
+  if(text.length > 140){
+     //salert('Error: Exceeded Character Limit');
+     $('.error-message').text('Error: Exceeded Character Limit');
+     $('.error-message').show();
+     return true;
+  }
+  return false;
+}
 
 
 loadTweets = () => {
@@ -116,3 +119,14 @@ getText = formData => {
   return text;
 };
 
+resetCounter = () => {
+  $('.counter').text(140);
+  $(".counter").css('color', '#545149');
+};
+
+const escape = function (str) {
+  let div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+ // console.log('Escape log =>>', document.createTextNode(str));
+  return div.innerHTML;
+};

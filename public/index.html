@@ -56,6 +56,9 @@
     <!-- Page-specific (main) content here -->
     <main class="container">
     <section class="new-tweet">
+      <div class="error-message">
+        <strong>Error:</strong><p id="error-type"></p>
+      </div>
       <form method="POST" action="/tweets/" id="form-submit">
         <label for="tweet-text">What are you humming about?</label>
         <textarea name="text" id="tweet-text"></textarea>

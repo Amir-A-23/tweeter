@@ -38,3 +38,23 @@ button[type=submit] {
   font-family: 'Bungee';
   color: #545149;
 }
+
+.error-message {
+  display: none;
+  background-color: #f7a9a9;
+  border: 1px solid #ee9192;
+  float: center;
+  padding: 20px 30px;
+  margin-top: 1em;
+  color: #cc0033;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 20px;
+  text-shadow: 1px 1px rgba(250,250,250,.3);
+  text-align: center;
+}
+
+.overflow-wrap {
+  overflow-wrap: break-word;
+}
