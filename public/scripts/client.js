@@ -11,7 +11,7 @@ const renderTweets = function(tweets) {
   for(let tweetData of tweets) {
     //console.log(tweetData);
     let $tweetElement = createTweetElement(tweetData);
-    $(`.tweet-container`).append($tweetElement);
+    $(`.tweet-container`).prepend($tweetElement);
   }
 }
 createTweetElement = (tweetData) => {
