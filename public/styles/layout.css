@@ -15,7 +15,7 @@ html {
  */
 
 body {
-  width: 50%;
+  width: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -28,14 +28,21 @@ body {
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
- #nav-bar {
-  position: fixed;
-  top: 0;
-  width: 50%;
- }
-
+ 
 .container {
    width: 90%;
    margin: auto;
    background-color: #f4f1ec;
  }
+ 
+ @media only screen and (min-width: 1600px) {
+   body {
+     flex-direction: row;
+     justify-content: space-between;
+   }
+   .container {
+     width: 50%;
+   }
+  
+  /* Write Tablet only CSS here */
+}

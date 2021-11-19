@@ -4,7 +4,7 @@
   flex-direction: column;
 }
 article.tweet {
-  margin-top: 2em;
+  margin-top: 2rem;
   border: solid black;
 }
 article.tweet:hover {
@@ -61,3 +61,4 @@ article.tweet footer {
 .fa-heart:hover {
   color: goldenrod;
 }
+

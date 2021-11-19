@@ -1,16 +1,18 @@
 nav {
-  position: relative;
+  position: absolute;
+  top: 0;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 120px;
-  width: 100%;
   background-color: #4056A1;
   color: #FFFFFF;
-  padding-left: 1.5em;
-  padding-right: 1.5em;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   align-items: center;
-  z-index: 1;
+  z-index: 10;
+  visibility: hidden;
 }
 
 .logo-container {
@@ -18,7 +20,10 @@ nav {
   font-size: 200%;
 }
 .right-container {
+  position: static;
   font-family: 'Source Sans Pro';
+  visibility: visible;
+
 }
 #write {
   font-weight: 600;
@@ -27,4 +32,11 @@ nav {
   display: flex;
   justify-content: center;
   color: red;
+}
+
+@media only screen and (min-width: 1600px) {
+  nav {
+    visibility: visible;
+    position: fixed;
+  }
 }

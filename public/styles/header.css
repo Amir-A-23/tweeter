@@ -1,5 +1,4 @@
 .header-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,7 +6,6 @@
   height: 520px;
   width: 100%;
   background-image: url("../images/diagmonds--light--520x260.png");
-  z-index: 0;
 }
 .avatar {
   margin-top: 50px;
@@ -18,4 +16,12 @@
 }
 #first-name {
   font-weight: 600;
+}
+
+@media only screen and (min-width: 1600px) {
+  .header-container{
+    width: 30%;
+    margin-top: 240px;
+    margin-left: 20px;
+  }
 }
