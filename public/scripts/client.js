@@ -8,20 +8,21 @@ const renderTweets = tweets => {
   // loops through tweets
   // calls createTweetElement for each tweet
   // takes return value and prepend it to the tweets container
-  for(let tweetData of tweets) {
+  for (let tweetData of tweets) {
     let $tweetElement = createTweetElement(tweetData);
     $(`.tweet-container`).prepend($tweetElement);
   }
 };
+
+//get last tweet added to tweet DB
+//use prepend to add to top of tweet-container
 const renderLatestTweet = tweets => {
-    const latestTweet = tweets[tweets.length - 1];
-    //console.log(latestTweet);
-    let $tweetElement = createTweetElement(latestTweet);
-    $(`.tweet-container`).prepend($tweetElement);
+  const latestTweet = tweets[tweets.length - 1];
+  let $tweetElement = createTweetElement(latestTweet);
+  $(`.tweet-container`).prepend($tweetElement);
 };
- //!CHECK TO SEE IF ESCAPE WORKS
-createTweetElement = tweetData => {
-let article = `<article class = "tweet">
+const createTweetElement = tweetData => {
+  let article = `<article class = "tweet">
                 <header>
                   <div class="avatar-name-container">
                     <div class="tweeter-avatar">
@@ -49,7 +50,7 @@ let article = `<article class = "tweet">
                     <i class="fas fa-heart"></i>
                   </div>
                 </footer>
-              </article>`
+              </article>`;
   
   return article;
 };
@@ -60,73 +61,83 @@ $(document).ready(() => {
   loadTweets();
 
   $('#form-submit').submit((event) => {
-  const formData = $('form').serialize();
-  const text = getText(formData);
+    const formData = $('form').serialize();
+    const text = getText(formData);
 
- // $('.error-message').hide();
-  //Error Handling if form is empty or spaces
-  if(!errorhandle(text)) {
+    //Error Handling if form is empty or spaces
+    if (!errorhandle(text)) {
       $('.error-message').hide();
-    $.post('/tweets', formData, function () {
+
+      $.post('/tweets', formData, function() {
         
-      //once you post a tweet, get that post back and display it
-      loadLatestTweet();
-      //reset textarea after submitting
-    $('textarea').val("");
-    //reset counter after submitting
-    resetCounter();
-    });
-  }
+        //once you post a tweet, get that post back and display it
+        loadLatestTweet();
+        //reset textarea after submitting
+        $('textarea').val("");
+        //reset counter after submitting
+        resetCounter();
+
+      });
+    }
 
     event.preventDefault();
 
   });
 });
-errorhandle = text => {
-  if(!text || !text.trim()) {
-     $('.error-message').text('Error: Tweet is empty');
-     $('.error-message').show();
-     return true;
-  } 
-  if(text.length > 140){
-     //salert('Error: Exceeded Character Limit');
-     $('.error-message').text('Error: Exceeded Character Limit');
-     $('.error-message').show();
-     return true;
+
+
+//Check for edge cases
+const errorhandle = text => {
+  if (!text || !text.trim()) {
+    $('.error-message').text('Error: Tweet is empty');
+    $('.error-message').show();
+    return true;
+  }
+  if (text.length > 140) {
+    $('.error-message').text('Error: Exceeded Character Limit');
+    $('.error-message').show();
+    return true;
   }
   return false;
-}
+};
 
 
-loadTweets = () => {
+
+//GET request get the initial tweets to load on main page
+const loadTweets = () => {
   $.get('/tweets/', function(data) {
     renderTweets(data);
   });
 };
 
-loadLatestTweet = () => {
+//GET request to get the latest tweet user submits
+const loadLatestTweet = () => {
   $.get('/tweets/', function(data) {
     renderLatestTweet(data);
   });
-}
+};
+
+//remove the first 5 characters which are 'text=' from the form data
 getText = formData => {
   let text = '';
-  for(let chars in formData) {
-    if(chars > 4) {
+  for (let chars in formData) {
+    if (chars > 4) {
       text += formData[chars];
     }
   }
   return text;
 };
 
-resetCounter = () => {
+
+//reset after submission
+const resetCounter = () => {
   $('.counter').text(140);
   $(".counter").css('color', '#545149');
 };
 
-const escape = function (str) {
+//handle XSS
+const escape = function(str) {
   let div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
- // console.log('Escape log =>>', document.createTextNode(str));
   return div.innerHTML;
 };
