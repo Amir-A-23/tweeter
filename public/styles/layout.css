@@ -22,7 +22,7 @@ body {
   justify-content: center;
   color: #545149;
   background-color: #f4f1ec;
-  font-size: 24px;
+  font-size: 12px;
   font-family: 'Source Sans Pro', sans-serif;
 }
 /*
@@ -35,7 +35,7 @@ body {
    background-color: #f4f1ec;
  }
  
- @media only screen and (min-width: 1600px) {
+ @media only screen and (min-width: 1024px) {
    body {
      flex-direction: row;
      justify-content: space-between;

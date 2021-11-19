@@ -41,6 +41,7 @@ article.tweet footer {
   margin: 1em;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 }
 .time-posted {
@@ -62,3 +63,8 @@ article.tweet footer {
   color: goldenrod;
 }
 
+@media only screen and (min-width: 1024px) {
+  article.tweet {
+    width: 100%;
+  }
+}
